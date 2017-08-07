@@ -2,18 +2,6 @@
 version: '2.0'
 services:
 
-  etl_controller:
-    restart: always
-    build: etl_controller/.
-    container_name: etl_controller
-    expose:
-    - '80'
-    ports:
-    - 80:80
-    volumes:
-    - "./etl_controller:/app:ro"
-    - "./etl_controller/workflow:/workflow:ro"
-
   db:
     restart: always
     image: postgres
@@ -25,98 +13,13 @@ services:
     volumes:
     - postgres-data-volume:/var/lib/postgresql/data
 
-  redis:
-    restart: always
-    image: redis
-    container_name: redis
-    command: redis-server --appendonly yes
-    expose:
-    - '6379'
-    ports:
-    - 6391:6379
-    volumes:
-    - redis-data-volume:/data
-
-  vertica:
-    # restart: always
-    build: vertica/.
-    container_name: vertica
-    expose:
-    - '5433'
-    ports:
-    - 5433:5433
-    volumes:
-    - vertica-data-volume:/home/dbadmin/docker
-    entrypoint: "/bin/bash -c 'echo this_service_is_disabled'"
-
-  http_file:
-    image: nginx
-    restart: always
-    container_name: http_file
-    volumes:
-    - "/Users/jicuss/Documents/TestCases/github_examples/vertica_parity_env/one_off_scripts/IDES-400_Update_iNET_alteryx_ingestion_workflow/prod_data:/usr/share/nginx/html:ro"
-    expose:
-    - '80'
-    ports:
-    - 8080:80
-    #entrypoint: "/bin/bash -c 'echo this_service_is_disabled'"
-
-
   simple_example:
     build: simple_example_for_dad/.
     container_name: simple_example
-    #entrypoint: "/bin/bash -c 'echo this_service_is_disabled'"
+    entrypoint: "/bin/bash -c 'echo this_service_is_disabled'"
     volumes:
     - ./simple_example_for_dad/data:/tmp/log
 
-
-  docker_registry:
-    image: registry
-    #restart: always
-    container_name: docker_registry
-    expose:
-    - '5000'
-    ports:
-    - 5000:5000
-    entrypoint: "/bin/sh -c 'echo this_service_is_disabled'"
-
-
-  pypi:
-    build: docker-pypi/.
-    # image: codekoala/pypi
-    restart: always
-    container_name: pypi
-    volumes:
-    - pypi-data-volume:/srv/pypi
-    expose:
-    - '80'
-    ports:
-    - 9000:80
-
-  jenkins:
-    build: jenkins/.
-    restart: always
-    container_name: jenkins
-    volumes:
-    - jenkins-data-volume:/var/jenkins_home
-    - pypi-data-volume:/var/jenkins_home/pypi
-    expose:
-    - '80'
-    ports:
-    - 9050:8080
-
-
-
 volumes:
-  vertica-data-volume:
-    driver: local
-  log-data-volume:
-    driver: local
-  redis-data-volume:
-    driver: local
   postgres-data-volume:
-    driver: local
-  pypi-data-volume:
-    driver: local
-  jenkins-data-volume:
     driver: local
