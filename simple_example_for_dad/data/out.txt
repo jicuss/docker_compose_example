@@ -1,0 +1,16 @@
+DRIVER={PostgreSQL Unicode};
+DATABASE=postgres;
+UID=postgres;
+PWD=whatever;
+SERVER=localhost;
+PORT=5432;
+current time: 2017-08-06 19:14:49.705592
+current time: 2017-08-06 19:14:50.707237
+current time: 2017-08-06 19:14:51.708570
+current time: 2017-08-06 19:14:52.711507
+current time: 2017-08-06 19:14:53.713635
+current time: 2017-08-06 19:23:58.896882
+current time: 2017-08-06 19:23:59.899799
+current time: 2017-08-06 19:24:00.901736
+current time: 2017-08-06 19:24:01.904071
+current time: 2017-08-06 19:24:02.905997
